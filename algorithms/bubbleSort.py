@@ -4,13 +4,13 @@ def bubbleSort(array):
     n = len(array)
 
     for i in range(n):
-        # Flag para terminar o programa: remove passos desnecessários
+        # Flag to finish the algorithm and remove unecessary iterations
         isSorted = True
 
-        # Percorrer os elementos do array um a um e comparar
-        # com os vizinho
+        # Go through all elements of the array and compare with their
+        # neighbour
         for j in range(n - i - 1):
-            # Se o valor atual for maior ...
+            # if the actual value is bigger then the next ...
             if array[j] > array[j + 1]:
                 array[j], array[j + 1] = array[j + 1], array[j]
             isSorted = False

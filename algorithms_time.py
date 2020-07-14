@@ -23,7 +23,7 @@ def runAlgorithm(algorithm, array_to_sort):
     print(f"Algorithm: {algorithm}. Minimum execution time: {min(times)}.")
 
 
-ARRAY_LENGTH = 10000
+ARRAY_LENGTH = 1000
 
 
 if __name__ == "__main__":
@@ -33,8 +33,9 @@ if __name__ == "__main__":
     # Call the function using the name of the sorting algorithm
     # and the array you just created
     runAlgorithm(algorithm="sorted", array_to_sort=array)
-    # runAlgorithm(algorithm="bubbleSort", array_to_sort=array)
-    # runAlgorithm(algorithm="insertionSort", array_to_sort=array)
+    runAlgorithm(algorithm="bubbleSort", array_to_sort=array)
+    runAlgorithm(algorithm="insertionSort", array_to_sort=array)
     runAlgorithm(algorithm="mergeSort", array_to_sort=array)
     runAlgorithm(algorithm="quickSort", array_to_sort=array)
+    runAlgorithm(algorithm="timSort", array_to_sort=array)
 

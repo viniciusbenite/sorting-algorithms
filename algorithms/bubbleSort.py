@@ -1,3 +1,5 @@
+# O(n²)
+
 def bubbleSort(array):
     n = len(array)
 
@@ -11,10 +13,9 @@ def bubbleSort(array):
             # Se o valor atual for maior ...
             if array[j] > array[j + 1]:
                 array[j], array[j + 1] = array[j + 1], array[j]
-
             isSorted = False
 
         if isSorted:
             break
-
+    # print(array)
     return array

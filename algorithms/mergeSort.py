@@ -1,48 +1,46 @@
 # Divide and conquer algorithm
+import copy
+from .visualizer import Visualizer
 
 
 # O(n)
-def merge(leftArray, rightArray):
-    # Check if the one of the arrays is empty -> return the second array
-    if len(leftArray) == 0:
-        return rightArray
+def merge(array, left, right, frames):
+    middle = (left + right) // 2
 
-    if len(rightArray) == 0:
-        return leftArray
+    if right - left > 2:
+        merge(array, left, middle, frames)
+        merge(array, middle, right, frames)
 
-    finalArray = []
-    indexLeft = 0
-    indexRight = 0
+    arrayColor = copy.deepcopy(array)
 
-    # Iterate over the arrays until the final array is bigger
-    while len(finalArray) < len(leftArray) + len(rightArray):
-        # Compare the elements of both arrays and insert the
-        # smaller one into the final array
-        if leftArray[indexLeft] <= rightArray[indexRight]:
-            finalArray.append(leftArray[indexLeft])
-            indexLeft = indexLeft + 1
+    for i in range(left, middle):
+        arrayColor[i].set_color('y')
+    for i in range(middle, right):
+        arrayColor[i].set_color('b')
+
+    l = left
+    r = middle
+    tempArray = []
+
+    for i in range(left, right):
+        frames.append(copy.deepcopy(arrayColor))
+        if r == right or (l < middle and array[l].value <= array[r].value):
+            tempArray.append(array[l])
+            frames[-1][l].set_color('r')
+            l = l + 1
         else:
-            finalArray.append(rightArray[indexRight])
-            indexRight = indexRight + 1
-        # If the one of the both array ends
-        if indexRight == len(rightArray):
-            # Add the remaining of the array and stop
-            finalArray += leftArray[indexLeft:]
-            break
-        if indexLeft == len(leftArray):
-            finalArray += rightArray[indexRight:]
-            break
-    # print(finalArray)
-    return finalArray
+            tempArray.append(array[r])
+            frames[-1][r].set_color('r')
+            r = r + 1
+    for i in range(left, right):
+        array[i] = tempArray[i - left]
+    frames.append(copy.deepcopy(array))
 
 
 #  O(nlog2n)
-def mergeSort(array):
-    if len(array) < 2:
-        return array
-    midPoint = len(array) // 2
-
-    # Use of recursion to split the input into two equals halfs
-    # and merge them to final result
-    return merge(leftArray=mergeSort(array=array[:midPoint]),
-                 rightArray=mergeSort(array=array[midPoint:]))
+def mergeSort(data):
+    frames = [data]
+    array = copy.deepcopy(data)
+    merge(array, 0, Visualizer.sizeArrays, frames)
+    frames.append(array)
+    return frames
